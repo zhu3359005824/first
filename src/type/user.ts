@@ -1,5 +1,5 @@
  export    interface User {
     id: number;
-    name: string;
-    phone: string;
+    nickname: string;
+    username: string;//手机号
   }

@@ -18,7 +18,7 @@ const routes = [
         id:1,
         icon:'Platform',
         component:()=>import ("../view/controllerboard/index.vue")
-    /*     component:()=>import ("../view/controllerboard/test.vue") */
+   
       },
       {
         path:'/upload',

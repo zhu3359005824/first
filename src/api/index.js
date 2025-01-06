@@ -50,7 +50,7 @@ export const deleteByUsername=(username)=>{
 }
 
 export const updateByUsername=(fromData)=>{
-  return request.post("/user/update"+fromData)
+  return request.post("/user/update",fromData)
 }
 
 

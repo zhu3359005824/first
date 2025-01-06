@@ -24,7 +24,7 @@ async  function loadUserList(){
         if(response.data){
           response.data.forEach((value:any)=>{
 
-            testData.value.push({id:value.id,name:value.nickname,phone:value.username})
+            testData.value.push({id:value.id,nickname:value.nickname,username:value.username})
 
           })
         }
@@ -36,35 +36,41 @@ async  function loadUserList(){
       }
 }
 
-async  function UpdateUserById(userId:any) {
+async  function UpdateUserById(username:any) {
   console.log(selectedUserId.value)
-  // 找到要删除的用户索引
-  const index = testData.value.findIndex(user => user.phone === userId);
+  // 找到用户索引
+  const index = testData.value.findIndex(user => user.username === username);
   if (index !== -1) {
-    const response=await deleteByUsername(userId)
-    console.log(response.data)
 
-    if(response.data.message==="删除成功"){
+    const formData = new FormData();
+      formData.append('nickname', newnickname.value);
+      formData.append('password', newpassword.value);
+      formData.append('username', selectedUserId.value);
+    const response=await updateByUsername(formData)
+  
+
+    if(response.data.message==="修改信息成功"){
       
-    testData.value.splice(index, 1); // 删除用户
-    deleteUser.value = false; // 关闭删除对话框
+    testData.value[index].nickname=newnickname.value
+    dialogFormVisible.value = false; 
     
     }
 
-    testData.value.splice(index, 1); // 删除用户
-    deleteUser.value = false; // 关闭删除对话框
-    ElMessage.success('用户删除成功');
+    
+    dialogFormVisible.value = false; 
+    ElMessage.success('用户信息修改成功');
   } else {
     ElMessage.error('用户不存在');
   }
 }
 
-async  function deleteUserById(userId:any) {
+async  function deleteUserById(username:any) {
   console.log(selectedUserId.value)
   // 找到要删除的用户索引
-  const index = testData.value.findIndex(user => user.phone === userId);
+  const index = testData.value.findIndex(user => user.username === username);
   if (index !== -1) {
-    const response=await deleteByUsername(userId)
+    
+    const response=await deleteByUsername(username)
     console.log(response.data)
 
     if(response.data.message==="删除成功"){
@@ -73,9 +79,7 @@ async  function deleteUserById(userId:any) {
     deleteUser.value = false; // 关闭删除对话框
     
     }
-
-    testData.value.splice(index, 1); // 删除用户
-    deleteUser.value = false; // 关闭删除对话框
+    
     ElMessage.success('用户删除成功');
   } else {
     ElMessage.error('用户不存在');
@@ -124,13 +128,13 @@ onMounted(() => {
 <template>
   <el-table :data="testData" style="width: 100%">
     <el-table-column prop="id" label="id" width="180" />
-    <el-table-column prop="name" label="昵称" width="180" />
-    <el-table-column prop="phone" label="手机号" width="180" />
+    <el-table-column prop="nickname" label="昵称" width="180" />
+    <el-table-column prop="username" label="手机号" width="180" />
 
     <el-table-column label="操作">
       <template #default="scope">
-        <el-button type="primary" @click="dialogFormVisible = true,selectedUserId = scope.row.phone">修改信息</el-button>
-        <el-button type="danger" @click="deleteUser = true; selectedUserId = scope.row.phone">删除用户</el-button>
+        <el-button type="primary" @click="dialogFormVisible = true,selectedUserId = scope.row.username">修改信息</el-button>
+        <el-button type="danger" @click="deleteUser = true; selectedUserId = scope.row.username">删除用户</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -166,7 +170,7 @@ onMounted(() => {
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button type="primary" @click="submitUpdate">
+        <el-button type="primary" @click="UpdateUserById(selectedUserId)">
           提交
         </el-button>
       </div>

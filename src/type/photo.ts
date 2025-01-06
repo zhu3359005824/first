@@ -4,5 +4,4 @@ export  interface PhotoItem {
     title: string;
     comment:string,
     imageName:string
-    // 其他可能的属性
   }
