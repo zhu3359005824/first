@@ -2,10 +2,10 @@
   <div>
     <!-- 图片展示界面 -->
     <div class="image-container" v-if="images.length > 0">
-      <el-row :gutter="20">
+      <el-row :gutter="40">
         <div v-for="(img, index) in images" :key="index">
           <el-card class="photo-card" @click="openDialog(img)">
-            <el-image :src="img.src" style="max-width: 500px; height: 200px;" :fit="contain" />
+            <el-image :src="img.src" style="max-width: 800px; height: 300px;" :fit="contain" />
           </el-card>
         </div>
       </el-row>
@@ -218,44 +218,83 @@ export default {
 
 <style lang="less" scoped>
 .image-container {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 20px;
-   .photocard {
- max-width: 480px;
- margin: 20px; /* 为上下左右都设置20px的外边距 */
- display: inline-block; /* 使卡片能够根据外边距进行排列 */
- vertical-align: top; /* 确保顶部对齐 */
-}
- }
- .el-image {
-   border-radius: 8px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- }
-
- .image-container {
- display: flex;
- flex-direction: row; /* 确保是横向布局 */
- flex-wrap: wrap; /* 允许换行 */
- gap: 20px; /* 卡片之间的间隔 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* 使用 gap 来统一设置行间距和列间距 */
 }
 
-.el-row {
- display: flex;
- flex-wrap: wrap;
- justify-content: space-between; /* 卡片之间的间隔均匀分布 */
+.photo-card {
+  margin: 20px; /* 为上下左右都设置20px的外边距 */
+  cursor: pointer;
+  max-width: 480px;
+ 
+  display: inline-block;
+  vertical-align: top;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.photocard {
- flex: 1; /* 允许卡片根据空间自动调整大小 */
- max-width: 480px; /* 最大宽度 */
- margin: 20px; /* 为上下左右都设置20px的外边距 */
- display: inline-block; /* 使卡片能够根据外边距进行排列 */
- vertical-align: top; /* 确保顶部对齐 */
+.photocard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .el-image {
- border-radius: 8px;
- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
- </style>
+
+.comment-item {
+  margin-bottom: 10px;
+}
+
+.comment-card {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-card .clearfix {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-card time {
+  font-size: 12px;
+  color: #888;
+}
+
+.el-form-item {
+  margin: 10px 0;
+}
+
+.el-input {
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+}
+
+.el-button {
+  border-radius: 4px;
+  background-color: #409EFF; /* Element Plus primary color */
+  color: white;
+}
+
+.el-button:hover {
+  background-color: #66b1ff;
+}
+
+/* Dialog customization */
+.el-dialog {
+  border-radius: 10px;
+}
+
+.el-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+</style>

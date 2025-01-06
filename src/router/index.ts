@@ -35,30 +35,14 @@ const routes = [
         icon:'Platform',
         component:UserView
         
-      }, {
+      },/*  {
         path:'/system',
-        name:'系统管理',
+        name:'个人信息',
         id:4,
         icon:'Platform',
-        children:[
-          {
-            path:'/system/user',
-            name:'添加',
-            id:41,
-            icon:'Platform',
-            component:()=>import ("../view/EditorAndLoad/index.vue")
+        component:()=>import ("../view/user/myPhoto.vue")
 
-            
-          },{
-            path:'/system/comment',
-            name:'评论',
-            id:42,
-            icon:'Platform',
-            component:()=>import ("../view/user/deleteuser.vue")
-          }
-        ]
-
-      }
+      } */
      ]
   
   },{

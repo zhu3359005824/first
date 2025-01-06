@@ -51,7 +51,10 @@ async  function UpdateUserById(username:any) {
 
     if(response.data.message==="修改信息成功"){
       
-    testData.value[index].nickname=newnickname.value
+      if(newnickname.value){
+        testData.value[index].nickname=newnickname.value
+      }
+    
     dialogFormVisible.value = false; 
     
     }
@@ -86,37 +89,7 @@ async  function deleteUserById(username:any) {
   }
 }
 
-// 提交更新
-async function submitUpdate() {
-  
-  
-    const formData = new FormData();
-      formData.append('nickname', newnickname.value);
-      formData.append('password', newpassword.value);
-      formData.append('username', selectedUserId.value);
-  
-     
-    try {
-    const response = await updateByUsername(formData);
 
-    console.log(response)
-    if (response.data && response.data.message === '修改信息成功') {
-      ElMessage.success('用户信息更新成功');
-      // 关闭对话框
-      dialogFormVisible.value = false;
-      // 更新用户列表
-      loadUserList();
-    } else {
-      ElMessage.error('更新失败');
-    }
-  } catch (error) {
-    console.error('更新用户信息失败', error);
-    ElMessage.error('更新失败');
-  }
-  
-  
-  
-}
 
 onMounted(() => {
   loadUserList()
